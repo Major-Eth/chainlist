@@ -1,26 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import Head from 'next/head'
 import { useRouter } from 'next/router'
 import styles from '../styles/Home.module.css'
 import { withTheme, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import path from 'path'
 import {
-  Grid,
   Typography,
   Button,
   TextField,
   InputAdornment,
   Paper
 } from '@material-ui/core'
-import ToggleButton from '@material-ui/lab/ToggleButton';
-import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import Chain from '../components/chain'
 import MultiChain from '../components/multichain'
 import Header from '../components/header'
 
 import SearchIcon from '@material-ui/icons/Search';
-import AppsIcon from '@material-ui/icons/Apps';
-import ListIcon from '@material-ui/icons/List';
 import AddIcon from '@material-ui/icons/Add';
 import useSWR from 'swr'
 
@@ -81,9 +74,7 @@ const searchTheme = createMuiTheme({
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 
 function Home({ changeTheme, theme }) {
-  const { data, error } = useSWR('https://chainid.network/chains.json', fetcher)
-
-  const [ layout, setLayout ] = useState('grid')
+  const { data } = useSWR('https://chainid.network/chains.json', fetcher)
   const [ search, setSearch ] = useState('')
   const [ hideMultichain, setHideMultichain ] = useState('1')
   const router = useRouter()
@@ -94,13 +85,6 @@ function Home({ changeTheme, theme }) {
 
   const onSearchChanged = (event) => {
     setSearch(event.target.value)
-  }
-
-  const handleLayoutChanged = (event, newVal) => {
-    if(newVal !== null) {
-      setLayout(newVal)
-      localStorage.setItem('yearn.finance-invest-layout', newVal ? newVal : '')
-    }
   }
 
   const addNetwork = () => {
@@ -123,11 +107,6 @@ function Home({ changeTheme, theme }) {
 
   return (
     <div className={styles.container}>
-      <Head>
-        <title>Chainlist</title>
-        <link rel="icon" href="/favicon.png" />
-      </Head>
-
       <main className={styles.main}>
         <div className={ theme.palette.type === 'dark' ? classes.containerDark : classes.container }>
           <div className={ classes.copyContainer }>
@@ -191,7 +170,6 @@ function Home({ changeTheme, theme }) {
                   if(search === '') {
                     return true
                   } else {
-                    //filter
                     return (chain.chain.toLowerCase().includes(search.toLowerCase()) ||
                     chain.chainId.toString().toLowerCase().includes(search.toLowerCase()) ||
                     chain.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -210,25 +188,3 @@ function Home({ changeTheme, theme }) {
 }
 
 export default withTheme(Home)
-
-// export const getStaticProps  = async () => {
-//
-//   try {
-//     const chainsResponse = await fetch('https://chainid.network/chains.json')
-//     const chainsJson = await chainsResponse.json()
-//
-//     return {
-//       props: {
-//         chains: chainsJson
-//       },
-//       revalidate: 60,
-//     }
-//   } catch (ex) {
-//     return {
-//       props: {
-//         chains: []
-//       }
-//     }
-//   }
-//
-// }
