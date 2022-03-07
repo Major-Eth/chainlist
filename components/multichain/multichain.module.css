@@ -71,3 +71,9 @@
     grid-row-end: 2;
   }
 }
+
+.yearnLogo {
+  margin-right: 24px;
+  border: 2px solid white;
+  border-radius: 99999px;
+}

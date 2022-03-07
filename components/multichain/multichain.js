@@ -1,15 +1,9 @@
 import React, { useState } from 'react';
 import { Typography, Paper, Grid, Button, FormControlLabel, Checkbox } from '@material-ui/core'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import Skeleton from '@material-ui/lab/Skeleton';
-import Web3 from 'web3';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import CloseIcon from '@material-ui/icons/Close';
-
 import classes from './multichain.module.css'
-
-import stores from '../../stores/index.js'
-import { getProvider } from '../../utils'
 
 export default function Multichain({ closeMultichain }) {
 
@@ -71,8 +65,8 @@ export default function Multichain({ closeMultichain }) {
     <Paper elevation={ 1 } className={ classes.chainContainer } key={ 'multichain' } >
       <ThemeProvider theme={theme}>
         <div className={ classes.topInfo }>
-          <img src='/multichain-logo.png' width={ 126 } height={ 126 } className={ classes.avatar } />
-          <Typography variant='subtitle1' className={ classes.descriptionText} align='center' >Manage over 120 tokens and multi-chain assets with fully supported cross chain transactions.</Typography>
+          <img src='/yfi.png' width={ 126 } height={ 126 } className={ classes.yearnLogo } />
+          <Typography variant='subtitle1' className={ classes.descriptionText} align='center'>Yearn is a protocol made by people for people. We make Decentralized Finance simple. We let your money work for you.</Typography>
           <Button
             className={ classes.tryButton }
             variant='contained'
@@ -81,7 +75,7 @@ export default function Multichain({ closeMultichain }) {
             color='secondary'
             endIcon={<ArrowForwardIcon />}
           >
-            <Typography className={ classes.buttonLabel }>Try out <b>multichain.xyz</b></Typography>
+            <Typography className={ classes.buttonLabel }>Try out <b>Yearn Finance</b></Typography>
           </Button>
         </div>
         <div className={ classes.bottomActions }>

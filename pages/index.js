@@ -12,12 +12,11 @@ import {
 import Chain from '../components/chain'
 import MultiChain from '../components/multichain'
 import Header from '../components/header'
-
 import SearchIcon from '@material-ui/icons/Search';
 import AddIcon from '@material-ui/icons/Add';
 import useSWR from 'swr'
-
 import classes from './index.module.css'
+import CHAINS from '../utils/chains.json'
 
 const searchTheme = createMuiTheme({
   palette: {
@@ -74,7 +73,6 @@ const searchTheme = createMuiTheme({
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 
 function Home({ changeTheme, theme }) {
-  const { data } = useSWR('https://chainid.network/chains.json', fetcher)
   const [ search, setSearch ] = useState('')
   const [ hideMultichain, setHideMultichain ] = useState('1')
   const router = useRouter()
@@ -166,7 +164,7 @@ function Home({ changeTheme, theme }) {
             <div className={ classes.cardsContainer }>
               { hideMultichain === '0' && <MultiChain closeMultichain={ closeMultichain } /> }
               {
-                data && data.filter((chain) => {
+                CHAINS.filter((chain) => {
                   if(search === '') {
                     return true
                   } else {
